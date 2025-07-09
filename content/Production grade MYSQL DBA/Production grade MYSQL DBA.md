@@ -12,13 +12,14 @@ title: Production grade MYSQL DBA
 
 ## [[DBACommands|DBACommands]]
 
-## [[SetupReplication]]
-
 ## [[Alter Schema With gh-ost]]
 
 ## [[MYSQL 5.7-to-8.0-migration]]
 
 ## [[MySQL Dump]]
+
+## [[MYSQL Replication Prechecks]]
+
 
 
 

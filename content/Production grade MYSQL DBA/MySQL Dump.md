@@ -8,8 +8,7 @@ title: MySQL Dump
 ### 1. Schema Export (Structure Only)
 ```bash
 mysqldump -h 172.16.1.6 -u DB_USERNAME -p'DB_PASSWORD' \
---skip-add-drop-table --set-gtid-purged=OFF --no-data \
-DATABASE_NAME > database_schema.sql
+--skip-add-drop-table --set-gtid-purged=OFF --no-data --skip-set-charset\ DATABASE_NAME > database_schema.sql
 ```
 
 ### 2. Data Export (Background Process)
