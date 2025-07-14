@@ -11,6 +11,8 @@ Topics below 👇
 
 ## [[AWS Certified Data Engineer - Associate]]
 
+## [[AWS Certified Solutions Architect Associate Certification SAA-C03]]
+
 ## [[DevOps Tools]]
 
 ## [[Databases]]
