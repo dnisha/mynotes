@@ -13,6 +13,8 @@ longform:
 
 ## [[PostgreSQL]]
 
+## [[Clickhouse]]
+
 ## [[DB Questions]]
 
 
