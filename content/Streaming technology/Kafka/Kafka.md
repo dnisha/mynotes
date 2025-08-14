@@ -47,6 +47,8 @@ title: Kafka
 
 ## [[Kafka Cluster Version Upgrade Using MM2]]
 
+## [[Kafka Authentication Mechanism]]
+
 
 
 
