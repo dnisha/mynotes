@@ -11,4 +11,7 @@ longform:
 
 ## [[Celery]]
 
+## [[Azure Event Hubs]]
+
+
 
