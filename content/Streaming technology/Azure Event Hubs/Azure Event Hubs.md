@@ -8,6 +8,9 @@ longform:
 ---
 ## [[Azure Event Hub Producer]]
 
-## [[Performace Test]]
+## [[Azure Event Hub Producer Performance Tuning]]
+
+## [[Azure Event Hub Consumer Performance Tuning]]
+
 
 
