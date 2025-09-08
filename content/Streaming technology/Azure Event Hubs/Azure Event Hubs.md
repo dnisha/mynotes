@@ -12,5 +12,8 @@ longform:
 
 ## [[Azure Event Hub Consumer Performance Tuning]]
 
+## [[Azure Event Hub Metrics Monitoring]]
+
+
 
 
