@@ -1,19 +1,12 @@
 ---
 longform:
   format: scenes
-  title: DevOps Tools
+  title: Docker
   workflow: Default Workflow
   sceneFolder: /
   scenes: []
   ignoredFiles: []
+title: Docker
 ---
-## [[Linux]]
 
-## [[Docker]]
-
-## [[Kubernetes]]
-
-## [[Monitoring]]
-
-## [[Terraform Module]]
-
+## [[Networking]]
