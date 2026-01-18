@@ -34,13 +34,23 @@ title: Linux
 
 ## [[Package Management]]
 
+## [[Disk Management]]
+
 ## [[Networking Commands]]
+
+## [[System Monitoring]]
 
 ## [[Text Processing]]
 
 ## [[Linux Logical Volume Manager ( LVM )]]
 
 ## [[Swappiness in Linux]]
+
+## [[Automation with Cron]]
+
+## [[Environment & Shell Configuration]]
+
+## [[Shell Scripting]]
 
 ## [[Linux Troubleshooting Commands]]
 

@@ -93,3 +93,15 @@ Use `systemctl` for managing systemd services:
 Use `ps -eo pid,stat,cmd` to see process states.
 
 ---
+
+## Background/Foreground Jobs
+
+```bash
+
+command &                 # Run in background
+Ctrl+Z                   # Suspend foreground job
+bg                       # Resume in background
+fg                       # Bring to foreground
+jobs                     # List background jobs
+
+```
