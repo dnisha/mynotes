@@ -81,16 +81,10 @@ Once the deployment finishes, run these commands to verify:
 kubectl get nodes -o wide
 ```
 
-**Verify OIDC Provider:**
-
-```bash
-eksctl get iamserviceaccount --cluster eksdemo1
-```
-
 **Check NodeGroup details:**
 
 ```bash
-eksctl get nodegroup --cluster eksdemo1
+eksctl get nodegroup --cluster eksdemo1 --region us-east-1
 ```
 
 
