@@ -13,6 +13,8 @@ Topics below 👇
 
 ## [[AWS Certified Solutions Architect Associate]]
 
+## [[AWS EKS Kubernetes-Masterclass]]
+
 ## [[DevOps Tools]]
 
 ## [[Databases]]
