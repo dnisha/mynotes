@@ -131,5 +131,5 @@ ssh -i kube-demo.pem ec2-user@<PUBLIC_IP_FROM_ABOVE>
 ### How to delete everything to avoid costs:
 
 ```bash
-eksctl delete cluster --name eksdemo1
+eksctl delete cluster --name eksdemo1 --region us-east-1
 ```
