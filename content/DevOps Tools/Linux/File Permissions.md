@@ -75,38 +75,215 @@ chown user:group file.txt  # Change both owner and group
 chgrp group file.txt       # Change group only
 ```
 
-## Special Permissions
+# Special Permissions in Linux: SUID, SGID, and Sticky Bit
 
-1. **Set User ID (SUID) (s)** - When set on executable, runs with owner's privileges
-   - Numeric: 4000 (e.g., `chmod 4755 file`)
+## 1. **Set User ID (SUID)**
 
-2. **Set Group ID (SGID) (s)** - For executables: runs with group's privileges. For directories: new files inherit group
-   - Numeric: 2000 (e.g., `chmod 2755 file`)
+### What it does:
 
-3. **Sticky Bit (t)** - On directories, restricts file deletion to owner (common on /tmp)
-   - Numeric: 1000 (e.g., `chmod 1777 directory`)
+- When set on an executable file, the program runs with the **owner's privileges** instead of the user's who executes it.
+- Represented by `s` in the execute position for owner.
 
-## Default Permissions (umask)
+### Numeric value: `4000`
 
-The `umask` determines default permissions for new files:
+### Example:
+
 ```bash
-umask 022      # Common setting (files: 644, dirs: 755)
-umask -S       # View current umask in symbolic form
+
+# Check current permissions
+ls -l /usr/bin/passwd
+# Typically shows: -rwsr-xr-x 1 root root
+
+# Set SUID (using symbolic notation)
+chmod u+s /path/to/executable
+
+# Set SUID (using numeric notation)
+chmod 4755 /path/to/executable
+
 ```
 
-## Access Control Lists (ACLs)
+**What 4755 means:**
 
-For more granular control beyond standard permissions:
+- `4` = SUID bit
+- `755` = rwxr-xr-x (owner: rwx, group: r-x, others: r-x)
+
+**Real-world example:**
+
 ```bash
-setfacl -m u:username:rwx file.txt  # Add ACL entry
-getfacl file.txt                    # View ACLs
+
+# /usr/bin/passwd needs SUID because:
+# - It's owned by root
+# - Regular users need to modify /etc/shadow (which only root can normally write to)
+# - With SUID, when a user runs passwd, it runs with root privileges temporarily
+
+# Check it:
+ls -l /usr/bin/passwd
+# Output: -rwsr-xr-x 1 root root 63960 Feb  7  2020 /usr/bin/passwd
+# The 's' in owner's execute position indicates SUID
+
 ```
 
-## Important Considerations
+## 2. **Set Group ID (SGID)**
 
-1. Directory permissions affect file access within them
-2. Root user (superuser) bypasses all permission checks
-3. Permissions are checked in order: owner > group > others
-4. Write permission on a directory is needed to delete files in it, even if you own the files
+### What it does:
 
-Understanding and properly configuring file permissions is crucial for Linux system security and proper functioning of services.
+1. **On executables**: Runs with the **group's privileges** instead of the user's group.
+
+2. **On directories**: New files created in the directory inherit the directory's group ownership.
+
+### Numeric value: `2000`
+
+### Example:
+
+```bash
+
+# For executables (like SUID but for group)
+chmod 2755 /path/to/executable
+
+# For directories
+chmod 2770 /shared-directory
+
+```
+
+**What 2755 means:**
+
+- `2` = SGID bit
+- `755` = rwxr-xr-x
+
+### Directory example:
+
+```bash
+
+# Create a shared directory for a team
+mkdir /shared
+chgrp developers /shared
+chmod 2770 /shared
+
+# Now, any file created in /shared will have 'developers' as group
+ls -ld /shared
+# Output: drwxrws--- 2 root developers 4096 Dec 10 10:00 /shared
+# The 's' in group's execute position indicates SGID
+
+# Test it:
+touch /shared/testfile
+ls -l /shared/testfile
+# Output: -rw-r--r-- 1 youruser developers 0 Dec 10 10:00 testfile
+# Note: group is 'developers' (inherited from directory), not your primary group!
+
+```
+
+##  **Sticky Bit**
+
+### What it does:
+
+- **On directories**: Users can only delete/rename files they own, even if they have write permission to the directory.
+
+- Common on `/tmp` and `/var/tmp` directories.
+
+### Numeric value: `1000`
+
+### Example:
+
+```bash
+
+# Set sticky bit on a directory
+chmod 1777 /tmp
+
+# Or using symbolic notation
+chmod +t /directory
+
+```
+
+**What 1777 means:**
+
+- `1` = Sticky bit
+- `777` = rwxrwxrwx (full permissions for all)
+
+### Practical example:
+
+```bash
+
+# Check /tmp directory
+ls -ld /tmp
+# Output: drwxrwxrwt 10 root root 4096 Dec 10 10:00 /tmp
+# The 't' in others' execute position indicates sticky bit
+
+# How it works:
+# - Everyone has rwx permissions to /tmp
+# - User1 creates file1 in /tmp
+# - User2 can read/write file1 (if permissions allow)
+# - User2 CANNOT delete file1 (only User1 or root can)
+
+```
+
+# **umask (User File Creation Mask)**
+
+## **What is umask?**
+
+- A mask that **subtracts** permissions from the maximum default permissions
+- It's **NOT** a permission value itself, but a filter that removes permissions
+- Controls default permissions for newly created files and directories
+- Expressed in **octal** notation (like 022, 027, 077)
+
+---
+
+## **How umask works:**
+
+### **Default Maximum Permissions:**
+
+1. **Files**: `666` (rw-rw-rw-)
+    - Files aren't executable by default for security
+2. **Directories**: `777` (rwxrwxrwx)
+
+### **The Calculation:**
+
+**Final Permission = Maximum Permission - umask**
+
+**Important:** It's a **bitwise AND with complement** operation, not simple subtraction:
+
+- `permission = maximum_permission & ~umask`
+
+## **Common umask values:**
+
+### **1. umask 022 (Most common default)**
+
+```bash
+
+umask 022
+
+# For files: 666 - 022 = 644
+touch newfile.txt
+ls -l newfile.txt  # -rw-r--r-- (644)
+
+# For directories: 777 - 022 = 755
+mkdir newdir
+ls -ld newdir  # drwxr-xr-x (755)
+
+```
+
+### **2. umask 027 (More restrictive)**
+
+```bash
+
+umask 027
+
+# For files: 666 - 027 = 640
+touch file1.txt
+ls -l file1.txt  # -rw-r----- (640)
+
+# For directories: 777 - 027 = 750  
+mkdir dir1
+ls -ld dir1  # drwxr-x--- (750)
+
+```
+
+## **Viewing and Setting umask:**
+
+### **1. Check current umask:**
+
+```bash
+
+umask          # Numeric form: 0022
+umask -S       # Symbolic form: u=rwx,g=rx,o=rx
+
+```
