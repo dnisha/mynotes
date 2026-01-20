@@ -67,3 +67,81 @@ find / -type f -size +100M  # Files >100MB
 find / -type f -size +1G    # Files >1GB
 
 ```
+
+# **Mounting & Unmounting EBS Volumes in EC2**
+
+## **Prerequisites Check**
+
+**List available disks:**
+
+```bash
+
+lsblk
+# or
+sudo fdisk -l
+# or for AWS-specific info
+sudo lsblk -f
+
+```
+
+### **SSH into EC2 and prepare volume:**
+
+```bash
+
+# List block devices
+lsblk
+
+# Create filesystem (if new/empty volume)
+sudo mkfs -t ext4 /dev/xvdf
+# For xfs:
+sudo mkfs.xfs /dev/xvdf
+
+# Create mount directory
+sudo mkdir /mnt/data
+
+# Mount the volume
+sudo mount /dev/xvdf /mnt/data
+
+# Verify
+df -h
+mount | grep xvdf
+
+```
+
+### **Make mount permanent (add to fstab):**
+
+```bash
+
+# Get UUID
+sudo blkid /dev/xvdf
+
+# Backup fstab
+sudo cp /etc/fstab /etc/fstab.backup
+
+# Edit fstab
+sudo nano /etc/fstab
+# Add line:
+UUID=your-uuid-here   /mnt/data   ext4   defaults,nofail   0   2
+
+# Test fstab (without mounting)
+sudo mount -a
+
+```
+
+## **Unmounting EBS Volume**
+
+### **Unmount properly:**
+
+```bash
+
+# Check what's using the mount
+sudo lsof /mnt/data
+# or
+sudo fuser -m /mnt/data
+
+# Unmount
+sudo umount /mnt/data
+# Force unmount if busy
+sudo umount -l /mnt/data  # lazy unmount
+
+```
