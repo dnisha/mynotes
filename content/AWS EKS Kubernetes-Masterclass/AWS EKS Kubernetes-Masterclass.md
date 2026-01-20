@@ -8,3 +8,5 @@ longform:
 title: AWS EKS Kubernetes-Masterclass
 ---
 ## [[Create Cluster Using EKSCTL]]
+
+## [[Horizontal Pod Autoscaler]]

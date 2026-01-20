@@ -31,7 +31,7 @@ kind: ClusterConfig
 metadata:
   name: eksdemo1
   region: us-east-1
-  version: "1.31"
+  version: "1.34"
 
 # Step-02: Automatically associate IAM OIDC Provider
 iam:
@@ -66,9 +66,7 @@ managedNodeGroups:
 Run the following command to create the VPC, Control Plane, OIDC Provider, and Node Groups all at once. This takes about 15–20 minutes.
 
 ```bash
-
 eksctl create cluster -f eks-cluster.yaml
-
 ```
 
 ### Step 3: Verify the Setup (Step-05)
