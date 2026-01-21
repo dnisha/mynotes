@@ -9,6 +9,8 @@ longform:
 ---
 ## [[Linux]]
 
+## [[Git]]
+
 ## [[Docker]]
 
 ## [[Kubernetes]]

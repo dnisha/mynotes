@@ -1,0 +1,120 @@
+---
+longform:
+  format: single
+  title: Git
+title: Git
+---
+# Comprehensive Version Control Guide: Git & GitHub
+
+## 1. Introduction to Version Control
+
+**Version Control** is a system that tracks changes to files over time, enabling collaboration, history tracking, and code management. It allows developers to work simultaneously, merge changes, and revert to previous versions when needed.
+
+## 2. Centralized vs Distributed VCS
+
+**Centralized VCS (CVS, SVN)**:
+- Single central server stores all versions
+- Requires network connection for most operations
+- Single point of failure
+- Examples: Subversion, Perforce
+
+**Distributed VCS (Git, Mercurial)**:
+- Every developer has complete repository copy
+- Can work offline
+- No single point of failure
+- Examples: Git, Mercurial
+
+## 3. Getting Started with Git
+
+**Installation**:
+- Download from git-scm.com
+- Available for Windows, macOS, Linux
+
+**Configuration**:
+Set global configuration with:
+- git config --global user.name "Your Name"
+- git config --global user.email "email@example.com"
+
+**GitHub Account Setup**:
+1. Create account at github.com
+2. Set up SSH keys for authentication
+3. Configure profile and preferences
+
+## 4. Core Git Commands
+
+**Repository Management**:
+- git init - Initialize new repository
+- git clone [url] - Clone existing repository
+- git status - Check repository status
+
+**Basic Workflow**:
+1. Make changes to files
+2. git add [files] - Stage changes
+3. git commit -m "message" - Commit changes
+4. git push - Send to remote repository
+5. git pull - Get updates from remote
+
+**History & Inspection**:
+- git log - View commit history
+- git diff - See changes
+- git show [commit] - View specific commit
+
+## 5. Branching & Merging
+
+**Branch Operations**:
+- git branch - List/create branches
+- git checkout [branch] - Switch branches
+- git checkout -b [branch] - Create and switch
+- git merge [branch] - Merge branches
+- git branch -d [branch] - Delete branch
+
+**Remote Branches**:
+- git fetch - Download remote changes
+- git pull --rebase - Update with rebase
+- git push origin [branch] - Push branch
+
+## 6. Advanced Git Operations
+
+**Stashing**:
+- git stash - Save uncommitted changes
+- git stash pop - Restore stashed changes
+- git stash list - View stashes
+
+**Rebasing**:
+- git rebase [branch] - Reapply commits
+- git rebase -i - Interactive rebase
+
+**Undoing Changes**:
+- git revert [commit] - Create undo commit
+- git reset --soft/hard - Move HEAD pointer
+- git checkout -- [file] - Discard changes
+
+**Tagging**:
+- git tag [name] - Create lightweight tag
+- git tag -a [name] -m "msg" - Annotated tag
+- git push --tags - Share tags
+
+## 7. GitHub Workflows
+
+**Forking Workflow**:
+1. Fork repository on GitHub
+2. Clone your fork locally
+3. Create feature branch
+4. Make changes and commit
+5. Push to your fork
+6. Create Pull Request
+
+**Pull Request Process**:
+- Create PR from fork to original
+- Add description and reviewers
+- Address review comments
+- Merge via squash/merge/rebase
+
+## 8. Git Ignore Patterns
+
+Create `.gitignore` file to exclude:
+- Node modules: node_modules/
+- Build outputs: dist/, build/
+- Environment files: .env
+- IDE files: .vscode/, .idea/
+- OS files: .DS_Store, Thumbs.db
