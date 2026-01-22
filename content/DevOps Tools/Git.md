@@ -73,6 +73,102 @@ Set global configuration with:
 - git pull --rebase - Update with rebase
 - git push origin [branch] - Push branch
 
+#### Git Merge vs Git Rebase
+
+##### **Git Merge**
+
+**Purpose**: Combines changes from different branches while preserving the commit history.
+
+**How it works**:
+
+- Creates a new "merge commit" that ties together the histories
+- Preserves the exact timeline of when commits were made
+- Non-destructive operation
+
+**Common workflow**:
+```bash
+# Merge feature branch into main
+git checkout main
+git merge feature-branch
+```
+
+**Visual result**:
+```bash
+      A---B---C feature
+     /         \
+D---E---F---G---H main (with merge commit)
+```
+
+**When to use**:
+
+- When you want to preserve the complete history
+- When working on public/shared branches
+- When multiple people are collaborating on the same branch
+
+**Pros**:
+
+- Simple and safe
+- Preserves original context
+- Non-destructive
+
+**Cons**:
+
+- Can create a cluttered history with many merge commits
+- Harder to read linear history
+
+##### **Git Rebase**
+
+**Purpose**: Re-applies commits from one branch onto another, creating a linear history.
+
+**How it works**:
+
+- Takes commits from your branch and "replays" them on top of another branch
+- Creates new commits (with new hashes)
+- Results in a linear, cleaner history
+
+**Common workflow**:
+```bash
+# Rebase feature branch onto main
+git checkout feature-branch
+git rebase main
+
+# Then fast-forward merge
+git checkout main
+git merge feature-branch
+```
+
+**Visual result** (before rebase):
+```
+      A---B---C feature
+     /
+D---E---F---G main
+```
+
+**After rebase**:
+```
+              A'--B'--C' feature
+             /
+D---E---F---G main
+```
+
+**When to use**:
+
+- When you want a clean, linear project history
+- Before merging to clean up your branch commits
+- For local branches (not yet shared)
+
+**Pros**:
+
+- Clean, linear history
+- Easier to navigate and understand
+- No unnecessary merge commits
+
+**Cons**:
+
+- Rewrites history (can cause issues if already pushed)
+- More complex conflict resolution
+- Can be dangerous on shared branches
+
 ## 6. Advanced Git Operations
 
 **Stashing**:
