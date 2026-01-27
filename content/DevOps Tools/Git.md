@@ -169,6 +169,70 @@ D---E---F---G main
 - More complex conflict resolution
 - Can be dangerous on shared branches
 
+##### **Git Cherry-Pick**
+
+Cherry-pick applies **specific commits** from one branch to another without merging entire branches.
+
+###### Quick Setup & Example
+
+```bash
+# Setup
+mkdir demo && cd demo
+git init
+echo "# Project" > README.md
+git add . && git commit -m "Initial commit"
+
+# Create feature branch with two commits
+git checkout -b feature
+echo "func1()" > feature1.js
+git add . && git commit -m "Add feature1"
+echo "func2()" > feature2.js
+git add . && git commit -m "Add feature2"
+
+# Get commit hashes
+git log --oneline
+# Output: 
+# abc1234 Add feature2
+# def5678 Add feature1
+# xyz9876 Initial commit
+
+# Cherry-pick only feature1 to main
+git checkout main
+git cherry-pick def5678
+```
+
+###### Visual Diagram
+
+###### Before Cherry-Pick:
+```
+      main:     O─────O─────O
+                ↑
+              Initial
+                
+      feature:  O─────A─────B
+                        ↑    ↑
+                    feature1 feature2
+                    (def5678)(abc1234)
+```
+
+###### After Cherry-Pick:
+```
+      main:     O─────O─────O─────A'
+                ↑                 ↑
+              Initial         Cherry-picked
+                                feature1
+                                (same changes as A)
+                
+      feature:  O─────A─────B
+                (unchanged)
+```
+
+###### Key Points
+- **A'** = New commit with same changes as **A**, but different hash
+- Only selected commit(s) are copied
+- Original branch remains unchanged
+- Useful for selective bug fixes/features across branches
+
 ## 6. Advanced Git Operations
 
 **Stashing**:
