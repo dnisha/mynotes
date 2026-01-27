@@ -9,4 +9,6 @@ title: AWS EKS Kubernetes-Masterclass
 ---
 ## [[Create Cluster Using EKSCTL]]
 
+## [[RBAC in AWS EKS]]
+
 ## [[Horizontal Pod Autoscaler]]
