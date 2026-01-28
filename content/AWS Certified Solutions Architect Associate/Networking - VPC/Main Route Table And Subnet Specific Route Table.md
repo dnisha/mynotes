@@ -91,7 +91,3 @@ In AWS VPC, **route tables (RTs)** control how traffic is routed within the VPC 
    - Select the RT → **Subnet Associations → Edit → Choose Subnet**.  
 
 ---
-
-### **Key Takeaway**  
-- **Main RT** = Default routing (applies if no custom RT is assigned).  
-- **Subnet-Specific RT** = Custom routing (overrides Main RT for selected subnets).  
