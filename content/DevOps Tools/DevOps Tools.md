@@ -11,6 +11,8 @@ longform:
 
 ## [[Git]]
 
+## [[SonarQube]]
+
 ## [[Docker]]
 
 ## [[Kubernetes]]
