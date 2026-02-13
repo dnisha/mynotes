@@ -7,7 +7,7 @@ longform:
   ignoredFiles: []
 title: AWS EKS Kubernetes-Masterclass
 ---
-## [[Create Cluster Using EKSCTL]]
+## [[Create Quick EKS Cluster]]
 
 ## [[RBAC in AWS EKS]]
 
