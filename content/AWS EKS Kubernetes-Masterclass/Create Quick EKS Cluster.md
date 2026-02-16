@@ -1,11 +1,9 @@
 ---
 longform:
   format: single
-  title: Create Production Grade Cluster
-title: Create Production Grade Cluster
+  title: Create Quick EKS Cluster
+title: Create Quick EKS Cluster
 ---
-# **EKS Cluster Setup**
-
 ## **Prerequisites**
 - AWS CLI configured
 - `eksctl` and `kubectl` installed
