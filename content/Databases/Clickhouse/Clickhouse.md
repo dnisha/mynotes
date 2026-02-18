@@ -8,3 +8,5 @@ longform:
 title: Clickhouse
 ---
 ## [[Memory Tuning Guide]]
+
+## [[ClickHouse Disk Space Optimization Guide]]
