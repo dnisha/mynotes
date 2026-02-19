@@ -13,5 +13,7 @@ longform:
 
 ## [[Azure Event Hubs]]
 
+## [[Confluent Kafka]]
+
 
 
