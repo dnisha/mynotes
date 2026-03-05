@@ -19,6 +19,8 @@ longform:
 
 ## [[DBA Commands]]
 
+## [[Aurora PostgreSQL Logical Replication Migration Guide]]
+
 ## [[content/Databases/PostgreSQL/Interview Questions|Interview Questions]]
 
 
