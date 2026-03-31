@@ -12,25 +12,35 @@ title: Create Quick EKS Cluster
 
 ### **Step 1: Create Cluster Configuration**
 Create `eks-prod.yaml`:
+
 ```yaml
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: prod-cluster
+  name: kafka-prod-cluster
   region: ap-south-1
   version: "1.33"
 
 iam:
   withOIDC: true
 
+availabilityZones:
+  - ap-south-1a
+  - ap-south-1b
+  - ap-south-1c
+
 managedNodeGroups:
   - name: standard-workers
     instanceType: c7i-flex.large
-    # Note : change th instance type that latest aws eks supports , else node will not get provisioned
-    desiredCapacity: 2
-    minSize: 2
-    maxSize: 3
+    # Note: change the instance type to one supported by AWS EKS, else nodes will not be provisioned
+    availabilityZones:
+      - ap-south-1a
+      - ap-south-1b
+      - ap-south-1c
+    desiredCapacity: 3
+    minSize: 3
+    maxSize: 6
     volumeSize: 100
     volumeType: gp3
     privateNetworking: true
@@ -41,11 +51,20 @@ managedNodeGroups:
         autoScaler: true
         albIngress: true
         cloudWatch: true
+        ebs: true
+
+addons:
+  - name: aws-ebs-csi-driver
+    version: latest
+    attachPolicyARNs:
+      - arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy
 
 cloudWatch:
   clusterLogging:
-    enableTypes: ["api", "audit", "authenticator"]
-
+    enableTypes:
+      - api
+      - audit
+      - authenticator
 ```
 
 ### **Step 2: Deploy Cluster**
