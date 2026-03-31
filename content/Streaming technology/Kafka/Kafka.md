@@ -49,7 +49,7 @@ title: Kafka
 
 ## [[Kafka Authentication Mechanism]]
 
-
+## [[LDAP + Confluent Kafka (KRaft Mode)]]
 
 
 
