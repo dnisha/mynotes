@@ -11,6 +11,8 @@ title: AWS Certified Solutions Architect Associate Certification SAA-C03
 
 ## [[Networking - VPC]]
 
+## [[AWS Control Tower Deep Dive]]
+
 
 
 
