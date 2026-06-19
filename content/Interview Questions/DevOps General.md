@@ -2,6 +2,7 @@
 longform:
   format: single
   title: DevOps General
+title: DevOps General
 ---
 # DevOps Engineer — Interview Prep
 
