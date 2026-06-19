@@ -452,13 +452,12 @@ Common root causes: kubelet crashed/can't reach API server (network/cert issue),
 - **Blue-green**: two full environments, switch traffic atomically, instant rollback (just switch back), but 2x infra cost during cutover.
 - **Canary**: route a small % of traffic to new version, watch metrics, gradually increase. Best for catching issues with real traffic before full exposure, but needs good observability/automation to be safe.
 
-**Q: How do you design a CI/CD pipeline from scratch for a microservice?** Stages: lint/static analysis → unit tests → build container image → push to registry (ECR) → integration tests → deploy to staging → smoke tests → manual/automated gate → deploy to prod (canary or rolling) → post-deploy health checks. 🔗 _"This is literally the CodeBuild → ECR → ECS Fargate pipeline I've built for AutoInfra — I can walk through the actual API design (`POST /api/ci/pipelines`, `/pipelines/:id/run`, `/pipelines/:id/builds`) if useful."_
+**Q: How do you design a CI/CD pipeline from scratch for a microservice?** Stages: lint/static analysis → unit tests → build container image → push to registry (ECR) → integration tests → deploy to staging → smoke tests → manual/automated gate → deploy to prod (canary or rolling) → post-deploy health checks.
 
 **Q: What causes flaky CI tests, and how do you deal with them?** Causes: test order dependency/shared state, timing/race conditions, external service calls without proper mocking, resource contention in parallel test runs. Approach: quarantine flaky tests (don't just ignore them — track and fix), add retries _only_ as a stopgap not a permanent fix, invest in deterministic test data/mocking.
 
 **Q: How do you handle secrets in a CI/CD pipeline securely?** Never in code/repo. Use the CI platform's encrypted secret store (GitHub Actions Secrets, AWS Secrets Manager/Parameter Store referenced at runtime), short-lived credentials over static keys where possible (OIDC federation for GitHub Actions → AWS instead of long-lived access keys), least-privilege IAM roles scoped per pipeline.
 
-🔗 _"This connects to the credential vending architecture I designed for AutoInfra — IAM Roles Anywhere with a KMS-backed CA, per-tenant API keys, short-lived credential issuance instead of static secrets."_
 
 ---
 
@@ -498,7 +497,7 @@ Common root causes: kubelet crashed/can't reach API server (network/cert issue),
 
 **Q: How would you architect infrastructure for a fast-growing startup (cost vs reliability tradeoff)?** Frame it as **stage-appropriate architecture**: early stage → optimize for speed of iteration and lower cost (managed services, single-region, simpler HA); growth stage → start investing in redundancy, multi-AZ, autoscaling, better observability; scale stage → multi-region, chaos engineering, formal SLOs/error budgets. Avoid over-engineering for scale you don't have yet — that's a common trap interviewers probe for.
 
-**Q: How do you decide between managed services (RDS, EKS) vs self-managed (EC2 + your own DB/K8s)?** Decision framework: team size/expertise (small team → managed, less ops burden), cost at scale (self-managed can be cheaper at very large scale but has hidden ops cost), compliance/control requirements (some orgs need self-managed for data residency/control), time-to-market pressure (managed = faster). 🔗 _"I've lived both sides of this — bare-metal RHEL Confluent deployment (self-managed, full control, more ops overhead) vs ECS Fargate for AutoInfra (managed compute, less operational burden, faster iteration)."_
+**Q: How do you decide between managed services (RDS, EKS) vs self-managed (EC2 + your own DB/K8s)?** Decision framework: team size/expertise (small team → managed, less ops burden), cost at scale (self-managed can be cheaper at very large scale but has hidden ops cost), compliance/control requirements (some orgs need self-managed for data residency/control), time-to-market pressure (managed = faster).
 
 **Q: How do you think about cost optimization in cloud infra?** Right-sizing (don't over-provision — monitor actual usage and adjust), reserved instances/savings plans for predictable baseline load, spot instances for fault-tolerant/batch workloads, autoscaling to match demand instead of provisioning for peak always, S3 lifecycle policies, tagging for cost visibility/accountability per team.
 
@@ -524,7 +523,7 @@ Common root causes: kubelet crashed/can't reach API server (network/cert issue),
 
 ### 4. Security, Compliance & Access Management
 
-**Q: How do you approach least-privilege access in a cloud environment?** Start with zero access, grant only what's needed for the role/task, use roles over individual user policies, time-bound/temporary credentials over long-lived static keys, regular access reviews to remove stale permissions, separate prod and non-prod credentials entirely. 🔗 _"This is the exact principle behind the multi-tenant credential vending system I designed for AutoInfra — IAM Roles Anywhere with a KMS-backed CA issuing short-lived, per-tenant scoped credentials instead of static keys."_
+**Q: How do you approach least-privilege access in a cloud environment?** Start with zero access, grant only what's needed for the role/task, use roles over individual user policies, time-bound/temporary credentials over long-lived static keys, regular access reviews to remove stale permissions, separate prod and non-prod credentials entirely.
 
 **Q: How do you handle secrets/certificate rotation in production without downtime?** Plan rotation _before_ expiry with alerting on cert/credential age, support dual-validity windows where both old and new are briefly accepted, automate via tools like cert-manager (K8s) or Vault dynamic secrets, test rotation procedure in staging first — never let rotation be a fire-drill. 🔗 _"I work with mTLS certs daily on the Confluent side — FQDN-signed certs across DACDCAP_ nodes — rotation planning is a real, recurring concern there, not theoretical."*
 
