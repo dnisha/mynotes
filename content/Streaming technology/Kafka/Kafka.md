@@ -51,7 +51,7 @@ title: Kafka
 
 ## [[LDAP + Confluent Kafka (KRaft Mode)]]
 
-
+## [[Kafka Client Keystore & Truststore Generation Guide]]
 
 
 
