@@ -31,7 +31,9 @@ Welcome to the **Data Structures and Algorithms (DSA)** section. This section co
 ### Medium
 - [[0003 - Longest Substring Without Repeating Characters]]
 - [[0146 - LRU Cache]]
+- [[0152 - Maximum Product Subarray]]
 - [[1186 - Maximum Subarray Sum with One Deletion]]
+
 
 
 ### Hard

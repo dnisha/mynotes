@@ -23,5 +23,7 @@ Arrays and Hash Tables form the foundation of algorithmic problem-solving. A Has
 ## Solved Problems
 
 - [[0001 - Two Sum]]
+- [[0152 - Maximum Product Subarray]]
 - [[1186 - Maximum Subarray Sum with One Deletion]]
+
 
